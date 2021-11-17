@@ -2,7 +2,9 @@
 
 1. ### [Times method](#building-our-own-times-method)
 
-2. ### 
+2. ### [Each method](#build-an-each-method)
+
+3. 
 
 # Building our own times method
 
@@ -80,3 +82,66 @@ end
 ```
 
 here we are `yielding the execution to the block` and also passing an argument to the block. During the method invocation we are passing in a block that takes an argument
+
+# Build an each method
+
+## Original implementation
+
+```ruby
+#each method
+[1, 2, 3].each { |num| puts "do_nothing" }
+```
+
+Here the `Array#each` method iterates over an array of integers and yielding each element to the block, applying the logic within the block to the elements in each iteration. `#each` method always returns the calling object.
+
+## Own implementation
+
+```ruby
+# Own implementation of the each method which iterates over an array and displays it while returning the calling object
+def each(array)
+  counter = 0
+
+  loop do
+    yield(array[counter])
+    counter += 1
+    break if counter == array.size
+  end
+
+  array
+end
+
+p each([1, 2, 3]) { |num| puts num }
+
+# 1
+# 2
+# 3
+# => [1, 2, 3]
+```
+
+## LS Implementation 
+
+```ruby 
+def each(array)
+  counter = 0
+
+  while counter < array.size
+    yield(array[counter])                           # yield to the block, passing in the current element to the block
+    counter += 1
+  end
+
+  array                                             # returns the `array` parameter, similar in spirit to how `Array#each` returns the caller
+end
+
+each([1, 2, 3, 4, 5]) do |num|
+  puts num
+end
+
+# 1
+# 2
+# 3
+# 4
+# 5
+# => [1, 2, 3, 4, 5]
+```
+
+Blocks helps the method callers to add additional details during the method invocation by passing in a block. After the block is executed then the execution is returned back to the while loop in the above example.
