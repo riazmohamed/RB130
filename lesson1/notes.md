@@ -162,7 +162,7 @@ select(array) { |num| puts num }      # => [], because "puts num" returns nil an
 select(array) { |num| num + 1 }       # => [1, 2, 3, 4, 5], because "num + 1" evaluates to true
 ```
 
-## My solution
+## Solution
 
 ```ruby
 def select(array)
