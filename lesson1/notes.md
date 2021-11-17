@@ -166,7 +166,7 @@ select(array) { |num| num + 1 }       # => [1, 2, 3, 4, 5], because "num + 1" ev
 
 ```ruby
 def select(array)
-  arr  =[]
+  arr = []
 
   array.each do |num|
     arr << num if yield(num)

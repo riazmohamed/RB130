@@ -1,5 +1,5 @@
 def select(array)
-  arr  =[]
+  arr = []
 
   array.each do |num|
     arr << num if yield(num)
