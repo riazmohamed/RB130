@@ -4,7 +4,9 @@
 
 2. ### [Each method](#build-an-each-method)
 
-3. 
+3. ### [Select Method](#build-select-method)
+
+4. 
 
 # Building our own times method
 
@@ -145,3 +147,40 @@ end
 ```
 
 Blocks helps the method callers to add additional details during the method invocation by passing in a block. After the block is executed then the execution is returned back to the while loop in the above example.
+
+# Build select method
+
+## Own implementation
+
+```ruby
+# build a custom #select method to fullfill the following test cases
+
+array = [1, 2, 3, 4, 5]
+
+select(array) { |num| num.odd? }      # => [1, 3, 5]
+select(array) { |num| puts num }      # => [], because "puts num" returns nil and evaluates to false
+select(array) { |num| num + 1 }       # => [1, 2, 3, 4, 5], because "num + 1" evaluates to true
+```
+
+## My solution
+
+```ruby
+def select(array)
+  arr  =[]
+
+  array.each do |num|
+    arr << num if yield(num)
+  end
+
+  arr
+end
+
+array = [1, 2, 3, 4, 5]
+
+select(array) { |num| num.odd? }      # => [1, 3, 5]
+select(array) { |num| puts num }      # => []
+select(array) { |num| num + 1 }       # => [1, 2, 3, 4, 5]
+```
+
+
+
