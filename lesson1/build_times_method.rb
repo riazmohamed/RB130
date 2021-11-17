@@ -13,13 +13,13 @@ end
 
 # our own times method
 def times(number)
-  counter = 1
+  counter = 0
   arr = []
 
   loop do
-    arr << (number - counter)
+    arr << counter
     counter += 1
-    break if counter > number
+    break if counter == number
   end
 
   arr.each { |num| yield(num) }
