@@ -72,6 +72,7 @@ class TodoList
   def to_s
     puts " ---- Today's Todos ----"
     todos.each { |items| puts items }
+    ""
   end
 end
 
