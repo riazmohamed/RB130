@@ -201,5 +201,3 @@ def select(array)
 end
 ```
 
-
-
