@@ -18,6 +18,7 @@ class TodoList
       raise TypeError.new("Can only add Todo objects")
     end
   end
+  alias_method :<<, :add
 
   def size
     todos.size
@@ -44,11 +45,11 @@ class TodoList
   end
 
   def mark_done_at(index)
-    todos.fetch(index).done!
+    item_at(index).done!
   end
 
   def mark_undone_at(index)
-    todos.fetch(index).undone!
+    item_at(index).undone!
   end
 
   def done!
@@ -145,7 +146,7 @@ list = TodoList.new("Today's Todos")
 # ---- Adding to the list -----
 
 # add
-list.add(todo1)                 # adds todo1 to end of list, returns list
+list.<<(todo1)                 # adds todo1 to end of list, returns list
 list.add(todo2)                 # adds todo2 to end of list, returns list
 list.add(todo3)                 # adds todo3 to end of list, returns list
 # list.add(1)                     # raises TypeError with message "Can only add Todo objects"
