@@ -6,7 +6,7 @@
 
 3. ### [Select Method](#build-select-method)
 
-4. 
+4. ### [Reduce Method](#build-reduce-method)
 
 # Building our own times method
 
@@ -201,3 +201,66 @@ def select(array)
 end
 ```
 
+# Build reduce method
+
+The main goal of the `#reduce` method is to `accumulate` or `fold` the given collection to one object. `#reduce` method takes a block and is invoked on the calling object. Unlike the `each` method `reduce` yields two arguments to the block. The first argument is the `accumulator` object and the second argument is the current element. Once the block executes the accumulator object is reassigned to the return value of the block.
+
+## Implementation
+
+```ruby
+def reduce(array, starting_value=0)
+  array.each do |num|
+    starting_value = yield(starting_value, num)
+  end
+  starting_value
+end
+
+array = [1, 2, 3, 4, 5]
+
+p reduce(array) { |acc, num| acc + num }                    # => 15
+p reduce(array, 10) { |acc, num| acc + num }                # => 25
+p reduce(array) { |acc, num| acc + num if num.odd? }        # => NoMethodError: undefined method `+' for nil:NilClass
+```
+
+In line `3` we are yielding two arguments to the block during the `reduce` method invocation. `starting_value` is then reassigned to the return value of the block. The expression within the block in `line 12` raises an error because the block returns `nil` when the Integer `2` is passed as an argument to it. Hence in the next iteration when we try to add the current element to the `nil` object it raises an error.
+
+## LS Implementation
+
+```ruby
+def reduce(array, default=0)
+  counter = 0
+  accumulator = default
+
+  while counter < array.size
+    accumulator = yield(accumulator, array[counter])
+    counter += 1
+  end
+
+  accumulator
+end
+```
+
+## Add additional functionality
+
+```ruby 
+def reduce(array, starting_value=nil)
+  array = array.clone
+  starting_value = array.shift if starting_value == nil
+
+  array.each do |num|
+    starting_value = yield(starting_value, num)
+  end
+
+  starting_value
+end
+
+array = [1, 2, 3, 4, 5]
+
+p reduce(array) { |acc, num| acc + num }                    # => 15
+p reduce(array, 10) { |acc, num| acc + num }                # => 25
+p reduce(array) { |acc, num| acc += num if num.odd?; acc }  # => 9
+p reduce(['a', 'b', 'c']) { |acc, value| acc += value }     # => 'abc'
+p reduce([[1, 2], ['a', 'b']]) { |acc, value| acc + value } # => [1, 2, 'a', 'b']
+```
+
+In `line 2` we are creating a copy of the array object by calling the method `clone` because if the conditional in `line 3` evalutates to `true` then the expression `array.shift` will permanently modify the calling collection by removing the first element and returning it. This will cause the return values of the other test cases to behave in an unexpected way. 
