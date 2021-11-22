@@ -1,7 +1,3 @@
-# This class represents a collection of Todo objects.
-# You can perform typical collection-oriented actions
-# on a TodoList object, including iteration and selection.
-
 class TodoList
   attr_accessor :title
 
@@ -93,14 +89,14 @@ class TodoList
     list
   end
 
+  def find_by_title(string)
+    select { |todo| todo.title == string }.first
+  end
+
   protected
 
   attr_reader :todos
 end
-
-# This class represents a todo item and its associated
-# data: name and description. There's also a "done"
-# flag to show whether this todo item is done.
 
 class Todo
   DONE_MARKER = 'X'
@@ -140,17 +136,17 @@ end
 # Implementing the TodoList#select method
 
 todo1 = Todo.new("Buy milk")
+todo1_1 = Todo.new("Buy milk")
 todo2 = Todo.new("Clean room")
 todo3 = Todo.new("Go to gym")
 
 list = TodoList.new("Today's Todos")
 list.add(todo1)
+list.add(todo1_1)
 list.add(todo2)
 list.add(todo3)
 
 todo1.done!
 
-results = list.select { |todo| todo.done? }    # you need to implement this method
-
-puts results.inspect
-# [#<Todo:0x000055e179e091c8 @title="Buy milk", @description="", @done=true>]
+p list.find_by_title("Buy milk")
+#<Todo:0x00005618232018b8 @title="Buy milk", @description="", @done=true>
