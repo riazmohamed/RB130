@@ -101,6 +101,11 @@ class TodoList
     select { |items| items.done == false }
   end
 
+  def mark_done(string)
+    item = find_by_title(string)
+    item ? item.done! : item
+  end
+
   protected
 
   attr_reader :todos
@@ -155,12 +160,21 @@ list.add(todo2)
 list.add(todo3)
 
 todo1.done!
-todo2.done!
+# todo2.done!
 # todo3.done!
 
 p list.find_by_title("Buy milk")
 #<Todo:0x00005618232018b8 @title="Buy milk", @description="", @done=true>
 p list.find_by_title("Buy k") # nil
 
+p list.mark_done("Clean room")
 p list.all_done
-p list.all_not_done
+# p list.all_not_done
+
+
+# methods to implement
+# TodoList Class  Description
+# find_by_title  takes a string as argument, and returns the first Todo object that matches the argument. Return nil if no todo is found. --
+# all_done  returns new TodoList object containing only the done items --
+# all_not_done  returns new TodoList object containing only the not done items --
+# mark_done  takes a string as argument, and marks the first Todo object that matches the argument as done. --
