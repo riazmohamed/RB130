@@ -86,9 +86,11 @@ class TodoList
   end
 
   def select
-    new_list = TodoList.new("Completed Todos")
-    todos.each { |todo| new_list.todos << todo if yield(todo) }
-    new_list
+    list = TodoList.new(title)
+    self.each do |todo|
+      list.add(todo) if yield(todo)
+    end
+    list
   end
 
   protected
