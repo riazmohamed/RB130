@@ -93,6 +93,10 @@ class TodoList
     select { |todo| todo.title == string }.first
   end
 
+  def all_done
+    done?
+  end
+
   protected
 
   attr_reader :todos
@@ -147,6 +151,11 @@ list.add(todo2)
 list.add(todo3)
 
 todo1.done!
+todo2.done!
+todo3.done!
 
 p list.find_by_title("Buy milk")
 #<Todo:0x00005618232018b8 @title="Buy milk", @description="", @done=true>
+p list.find_by_title("Buy k") # nil
+
+p list.all_done
