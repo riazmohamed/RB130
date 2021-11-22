@@ -82,7 +82,7 @@ class TodoList
       counter += 1
     end
 
-    todos
+    self # returning the calling object
   end
 
   def select
@@ -153,4 +153,4 @@ todo1.done!
 results = list.select { |todo| todo.done? }    # you need to implement this method
 
 puts results.inspect
-#<TodoList:0x000055de8d018440 @title="Completed Todos", @todos=[#<Todo:0x000055de8d018620 @title="Buy milk", @description="", @done=true>]>
+# [#<Todo:0x000055e179e091c8 @title="Buy milk", @description="", @done=true>]
