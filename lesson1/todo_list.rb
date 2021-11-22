@@ -97,6 +97,10 @@ class TodoList
     done?
   end
 
+  def all_not_done
+    select { |items| items.done == false }
+  end
+
   protected
 
   attr_reader :todos
@@ -152,10 +156,11 @@ list.add(todo3)
 
 todo1.done!
 todo2.done!
-todo3.done!
+# todo3.done!
 
 p list.find_by_title("Buy milk")
 #<Todo:0x00005618232018b8 @title="Buy milk", @description="", @done=true>
 p list.find_by_title("Buy k") # nil
 
 p list.all_done
+p list.all_not_done
