@@ -106,6 +106,10 @@ class TodoList
     item ? item.done! : item
   end
 
+  def mark_all_done
+    done!
+  end
+
   protected
 
   attr_reader :todos
@@ -168,7 +172,7 @@ p list.find_by_title("Buy milk")
 p list.find_by_title("Buy k") # nil
 
 p list.mark_done("Clean room")
-p list.all_done
+p list.mark_all_done
 # p list.all_not_done
 
 
@@ -178,3 +182,4 @@ p list.all_done
 # all_done  returns new TodoList object containing only the done items --
 # all_not_done  returns new TodoList object containing only the not done items --
 # mark_done  takes a string as argument, and marks the first Todo object that matches the argument as done. --
+# mark_all_done  mark every todo as done
