@@ -86,14 +86,12 @@ class TodoList
   end
 
   def select
-    arr = []
-
-    todos.each { |todo| arr << todo if yield(todo) }
-
-    arr
+    new_list = TodoList.new("Completed Todos")
+    todos.each { |todo| new_list.todos << todo if yield(todo) }
+    new_list
   end
 
-  private
+  protected
 
   attr_reader :todos
 end
@@ -153,4 +151,4 @@ todo1.done!
 results = list.select { |todo| todo.done? }    # you need to implement this method
 
 puts results.inspect
-# [#<Todo:0x000055e179e091c8 @title="Buy milk", @description="", @done=true>]
+#<TodoList:0x000055de8d018440 @title="Completed Todos", @todos=[#<Todo:0x000055de8d018620 @title="Buy milk", @description="", @done=true>]>
