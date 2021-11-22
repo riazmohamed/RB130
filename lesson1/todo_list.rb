@@ -85,6 +85,14 @@ class TodoList
     todos
   end
 
+  def select
+    arr = []
+
+    todos.each { |todo| arr << todo if yield(todo) }
+
+    arr
+  end
+
   private
 
   attr_reader :todos
@@ -129,7 +137,7 @@ class Todo
   end
 end
 
-# Implementing the TodoList#each method
+# Implementing the TodoList#select method
 
 todo1 = Todo.new("Buy milk")
 todo2 = Todo.new("Clean room")
@@ -140,10 +148,9 @@ list.add(todo1)
 list.add(todo2)
 list.add(todo3)
 
-list.each do |todo|
-  puts todo                   # calls Todo#to_s
-end
+todo1.done!
 
-# [ ] Buy milk
-# [ ] Clean room
-# [ ] Go to gym
+results = list.select { |todo| todo.done? }    # you need to implement this method
+
+puts results.inspect
+# [#<Todo:0x000055e179e091c8 @title="Buy milk", @description="", @done=true>]
