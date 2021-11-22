@@ -110,6 +110,10 @@ class TodoList
     done!
   end
 
+  def mark_all_undone
+    each(&:undone!)
+  end
+
   protected
 
   attr_reader :todos
@@ -167,13 +171,14 @@ todo1.done!
 # todo2.done!
 # todo3.done!
 
-p list.find_by_title("Buy milk")
+list.find_by_title("Buy milk")
 #<Todo:0x00005618232018b8 @title="Buy milk", @description="", @done=true>
-p list.find_by_title("Buy k") # nil
+list.find_by_title("Buy k") # nil
 
-p list.mark_done("Clean room")
-p list.mark_all_done
-# p list.all_not_done
+list.mark_done("Clean room")
+list.mark_all_done
+list.mark_all_undone
+p list.all_not_done
 
 
 # methods to implement
@@ -182,4 +187,5 @@ p list.mark_all_done
 # all_done  returns new TodoList object containing only the done items --
 # all_not_done  returns new TodoList object containing only the not done items --
 # mark_done  takes a string as argument, and marks the first Todo object that matches the argument as done. --
-# mark_all_done  mark every todo as done
+# mark_all_done  mark every todo as done ---
+# mark_all_undone  mark every todo as not done ---
