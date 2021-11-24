@@ -32,7 +32,8 @@ class TodoList
   end
 
   def done?
-    todos.select { |items| items.done }
+    items = todos.select { |items| items.done }
+    items == [] ? false : true
   end
 
   def item_at(num)
