@@ -145,5 +145,4 @@ class TodoListTest < Minitest::Test
     assert_equal(list.title, @list.title)
     assert_equal(list.to_s, @list.select{ |todo| todo.done? }.to_s)
   end
-
 end
