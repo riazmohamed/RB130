@@ -66,9 +66,9 @@ class TodoList
   end
 
   def to_s
-    puts " ---- Today's Todos ----"
-    todos.each { |items| puts items }
-    ""
+    text = "---- #{title} ----\n"
+    text << todos.map(&:to_s).join("\n")
+    text
   end
 
   def each
@@ -158,13 +158,11 @@ end
 # Implementing the TodoList#select method
 
 todo1 = Todo.new("Buy milk")
-todo1_1 = Todo.new("Buy milk")
 todo2 = Todo.new("Clean room")
 todo3 = Todo.new("Go to gym")
 
 list = TodoList.new("Today's Todos")
 list.add(todo1)
-list.add(todo1_1)
 list.add(todo2)
 list.add(todo3)
 
@@ -180,7 +178,7 @@ list.mark_done("Clean room")
 list.mark_all_done
 list.mark_all_undone
 p list.all_not_done
-
+puts list.to_s
 
 # methods to implement
 # TodoList Class  Description
