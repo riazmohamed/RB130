@@ -71,8 +71,7 @@ return the result array
 
 def divisors(num)
   result = []
-  arr = (1..num).to_a
-  arr.each { |ele| result << ele if (num.to_f / ele) == (num / ele) }
+  (1..num).each { |ele| result << ele if (num.to_f / ele) == (num / ele) }
   result
 end
 
