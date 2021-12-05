@@ -21,23 +21,15 @@ ENCRYPTED_PIONEERS = [
 ].freeze
 
 def decipher(str)
-  alpha_caps = ("A".."Z").to_a * 2
-  alpha_small = ("a".."z").to_a * 2
+  alphabet = ("a".."z").to_a
 
-  idx = 0
-  result = str.chars.map do |letter|
-    if alpha_caps.include? letter
-      idx = alpha_caps.index(letter)
-      alpha_caps[idx - 13]
-    elsif alpha_small.include? letter
-      idx = alpha_small.index(letter)
-      alpha_small[idx - 13]
-    else
-      letter
+  str.chars.map do |letter|
+    case letter
+    when /[A-Z]/ then alphabet.rotate(13)[alphabet.index(letter.downcase)].upcase
+    when /[a-z]/ then alphabet.rotate(13)[alphabet.index(letter)]
+    else letter
     end
-  end
-
-  p result.join
+  end.join
 end
 
-ENCRYPTED_PIONEERS.each { |name| decipher(name) }
+ENCRYPTED_PIONEERS.each { |name| p decipher(name) }
