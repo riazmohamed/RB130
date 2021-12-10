@@ -1,5 +1,6 @@
 # Write a program to determine whether a triangle is equilateral, isosceles, or scalene.
 
+# Note: For a shape to be a triangle at all, all sides must be of length > 0, and the sum of the lengths of any two sides must be greater than the length of the third side.
 
 =begin
 ========== THE PEDAC PROCESS ==========
@@ -15,26 +16,72 @@ Output: A string which says whether a triangle is equilateral, isosceles, or sca
 =====> Rules
 Explicit Requiremnts:
   - given length of the sides of the triangle as integers
-  -
+  - When the value is <= 0 raise an ArgumentError
+  -  the sum of the lengths of any two sides must be greater than the length of the third side (for isoceles and scalene triangles only).
+  - equilateral triangle has all sides equal
+  - isoceles triangle has two sides equal
+  - scalene triangle has no side equal. All three are different
+
 Implicit Requiremnts:
-  - the sides of the triangle has to be greater than zero
-  - 
+  - Arguments can be positive or negative integers
+  - only integers allowed
 
 =====> (Any Questions / Assumptions needing clarification?)
 (e.g. return the same string object or an entirely new string???)
 
 =====> Examples, Edge Cases(test rules and boundaries)
+Valid tests
+    Triangle.new(2, 2, 2).kind == 'equilateral'
+    Triangle.new(3, 4, 4).kind == 'isosceles'
+    Triangle.new(3, 4, 5).kind == 'scalene'
+    Triangle.new(0.4, 0.6, 0.3).kind = 'scalene'
 
+The following test cases should produce an error as
+- One or more of the arguments are 0 or lesser then 0
+    Triangle.new(0, 0, 0)
+    Triangle.new(3, 4, -5)
+
+- The sum of any two sides are not greater than the third side
+    Triangle.new(7, 3, 2)
+    Triangle.new(10, 1, 3)
+    Triangle.new(1, 1, 2)
 
 =====> Data structure(s):
-Input:
-Intermediate:
-Output:
+Input: Integers
+Intermediate: array, string
+Output: string
 
 =====> Algorithm:
+- Initialize a new class (Triangle)
+  - constructor - Initialize the constructor method, #initialize
+    - initialize(side1, side2, side3)
+      - The constructor method takes three arguments
+    - raise an ArgumentError unless valid?
 
-=====> Implementation (Optional):
+  - #kind - initialize the kind method
+    assign scalene, equilateral or isoceles to the appropriate triangle
+    - if condition1 then equilateral
+    - if condition3 then && any two sides are equal the isoceles
+    - if conditon3 && all the sides are different then scalene
 
+  - define #condition1 - check if all the sides are equal
+    - side1 == side2 == side3
+
+  - define #condtion2 - check if all the sides are greater then zero
+    [side1, side2, side3].all? { |num| num > 0 }
+
+  - define #condition3 - check if any two sides are greater than the third
+    side1 + side2 > side3 ||
+    side2 + side3 > side1 ||
+    side1 + side3 > side 2
+
+  - valid? - private helper method
+    - checks if the triangle is valid
+      - #condition1 || #condition2 || #condition3
 =end
 
 # Code With Intent
+
+class Triangle.new
+
+end
