@@ -56,32 +56,81 @@ Output: string
   - constructor - Initialize the constructor method, #initialize
     - initialize(side1, side2, side3)
       - The constructor method takes three arguments
+        initialize instance varibles
+        @side1 = side1
+        @side2 = side2
+        @side3 = side3
     - raise an ArgumentError unless valid?
 
   - #kind - initialize the kind method
     assign scalene, equilateral or isoceles to the appropriate triangle
-    - if condition1 then equilateral
-    - if condition3 then && any two sides are equal the isoceles
-    - if conditon3 && all the sides are different then scalene
+    - if all_sides_equal then return "equilateral"
+    - if two_sides_greater then && al thn return "isoceles"
+    - otherwise return "scalene"
 
-  - define #condition1 - check if all the sides are equal
-    - side1 == side2 == side3
+  - define #all_sides_equal - check if all the sides are equal
+    - @side1 == @side2 == @side3
 
-  - define #condtion2 - check if all the sides are greater then zero
-    [side1, side2, side3].all? { |num| num > 0 }
+  - define #greater_than_zero - check if all the sides are greater then zero
+    [@side1, @side2, @side3].all? { |num| num > 0 }
 
-  - define #condition3 - check if any two sides are greater than the third
-    side1 + side2 > side3 ||
-    side2 + side3 > side1 ||
-    side1 + side3 > side 2
+  - define #two_sides_greater - check if any two sides are greater than the third
+    @side1 + @side2 > @side3 ||
+    @side2 + @side3 > @side1 ||
+    @side1 + @side3 > @side 2
+
+  - define two_sides_equal
+    any two sides are equal
+    - @side1 == @side2 || @side2 == @side3
 
   - valid? - private helper method
     - checks if the triangle is valid
-      - #condition1 || #condition2 || #condition3
+      - #all_sides_equal || #greater_than_zero || #two_sides_greater
 =end
 
 # Code With Intent
 
 class Triangle.new
+  attr_reader :kind
 
+  def initialize(side1, side2, side3)
+    @side1 = side1
+    @side2 = side2
+    @side3 = side3
+    raise ArgumentError.new("This is not a valid triangle!") unless valid?
+  end
+
+  def kind
+    if all_sides_equal
+      "equilateral"
+    elsif two_sides_equal
+      "isosceles"
+    else
+      "scalene"
+    end
+  end
+
+  def all_sides_equal
+    @side1 == @side2 == @side3
+  end
+
+  def greater_than_zero
+    [@side1, @side2, @side3].all? { |num| num > 0 }
+  end
+
+  def two_sides_greater
+    @side1 + @side2 > @side3 ||
+    @side2 + @side3 > @side1 ||
+    @side1 + @side3 > @side2
+  end
+
+  def two_sides_equal
+    @side1 == @side2 || @side2 == @side3
+  end
+
+  private
+
+  def valid?
+    all_sides_equal || greater_than_zero || two_sides_greater
+  end
 end
