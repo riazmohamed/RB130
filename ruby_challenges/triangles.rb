@@ -69,7 +69,7 @@ Output: string
     - otherwise return "scalene"
 
   - define #all_sides_equal - check if all the sides are equal
-    - side1 == side2 && side2 == side3
+    - side1 and side2 are equal to side3
 
   - define #greater_than_zero - check if all the sides are greater then zero
     [side1, side2, side3].all? { |num| num > 0 }
@@ -91,7 +91,7 @@ Output: string
 # Code With Intent
 
 class Triangle
-attr_accessor :side1, :side2, :side3
+ attr_accessor :side1, :side2, :side3
 
   def initialize(side1, side2, side3)
     @side1 = side1
