@@ -31,7 +31,6 @@ Implicit Requiremnts:
 
 =====> Examples, Edge Cases(test rules and boundaries)
 
-
  test_no_difference_between_empty_strands
     assert_equal 0, DNA.new('').hamming_distance('')
     - when both are empty string then return the diffreence which is 0
@@ -57,7 +56,6 @@ Implicit Requiremnts:
 
  test_small_hamming_distance_in_middle_somewhere
     assert_equal 1, DNA.new('GGACG').hamming_distance('GGTCG')
-
 
  test_larger_distance
     assert_equal 2, DNA.new('ACCAGGG').hamming_distance('ACTATGG')
@@ -91,14 +89,16 @@ Output: Integer
 
 =====> Algorithm:
 Initialize a class DNA
-  getter method for string1, length
+  getter method for string1
+  getter/setter method for length
 
   define #initialize(string1)
     - Instance variable @string1 = parameter string1
     - Instance variable @length = 0
 
   define hamming_distance(string2)
-    - SET length = smallest_length(string1, string2)
+    - return 0 if string1 == string2
+    - SET self.length = smallest_length(string1, string2)
     - initialize first = chosen_string(string1)
     - initialize second = chosen_string(string2)
     - compare(first, second)
@@ -108,14 +108,13 @@ Initialize a class DNA
   - return the smallest count
 
   SUBPROCESS chosen_string(string)
-  - return string.chars[0..length].join
+  - return string.chars[0...length].join
 
   SUBPROCESS compare(first, second)
     - initialize hamming_count = 0
     - first.chars.each_with_index |letter, index|
         letter == second[index] ? hamming_count : hamming_count += 1
     - return hamming_count
-
 
 =====> Implementation (Optional):
 
@@ -124,5 +123,35 @@ Initialize a class DNA
 # Code With Intent
 
 class DNA
-  
+  attr_reader :string1
+  attr_accessor :length
+
+  def initialize(string1)
+    @string1 = string1
+    @length = 0
+  end
+
+  def hamming_distance(string2)
+    return 0 if string1 == string2
+    self.length = smallest_length(string1, string2)
+    first = chosen_string(string1)
+    second = chosen_string(string2)
+    compare(first, second)
+  end
+
+  def smallest_length(first, second)
+    [first, second].map {|ele| ele.chars.count }.min
+  end
+
+  def chosen_string(string)
+    string.chars[0...length].join
+  end
+
+  def compare(first, second)
+    hamming_count = 0
+    first.chars.each_with_index do |letter, index|
+      letter == second[index] ? hamming_count : hamming_count += 1
+    end
+    hamming_count
+  end
 end
