@@ -220,6 +220,8 @@ array = [1, 2, 3, 4, 5]
 p reduce(array) { |acc, num| acc + num }                    # => 15
 p reduce(array, 10) { |acc, num| acc + num }                # => 25
 p reduce(array) { |acc, num| acc + num if num.odd? }        # => NoMethodError: undefined method `+' for nil:NilClass
+# To fix line 12 replace it with the following code
+# p reduce(array) { |acc, num| num.odd? starting_value + num : starting_value }
 ```
 
 In line `3` we are yielding two arguments to the block during the `reduce` method invocation. `starting_value` is then reassigned to the return value of yielding the two arrguments `starting_value` and `num` to the block. The expression within the block in `line 12` raises an error because the block returns `nil` when the Integer `2` is passed as an argument to it. Hence in the next iteration when we try to add the current element to the `nil` object it raises an error.
