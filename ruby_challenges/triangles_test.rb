@@ -1,6 +1,8 @@
+require 'simplecov'
+SimpleCov.start
 require 'minitest/autorun'
-require 'minitest/reporters'
-Minitest::Reporters.use!
+# require 'minitest/reporters'
+# Minitest::Reporters.use!
 require_relative 'triangles'
 
 class TriangleTest < Minitest::Test
