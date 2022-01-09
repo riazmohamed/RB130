@@ -1,5 +1,6 @@
 class Series
   attr_reader :num
+  
   def initialize(num)
     @num = num
   end
