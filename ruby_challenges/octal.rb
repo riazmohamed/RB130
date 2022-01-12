@@ -13,4 +13,6 @@ class Octal
     return 0 unless valid_octal_number?
     num.to_i.digits.map.with_index { |n, i| n * 8**i }.sum
   end
+
+  private :valid_octal_number?
 end
