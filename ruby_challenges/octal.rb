@@ -6,7 +6,7 @@ class Octal
   end
 
   def valid_octal_number?
-    num.chars.all? { |ele| %w(0 1 2 3 4 5 6 7).include? ele }
+    num.chars.all? { |ele| ("0".."7").to_a.include? ele }
   end
 
   def to_decimal
