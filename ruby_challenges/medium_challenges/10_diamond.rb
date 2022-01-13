@@ -33,12 +33,10 @@ class Diamond
   end
 
   def self.make_diamond(letter)
-    return letter + '\n' if letter == 'A'
-
     diamond = Diamond.new
     arr = diamond.build_array(letter)
     part_arr = diamond.row_arr(arr, letter)
-    diamond.remaining(part_arr).join('\n') << '\n'
+    diamond.remaining(part_arr).join("\n") << "\n"
   end
 end
 # rubocop:enable Style/FrozenStringLiteralComment
