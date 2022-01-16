@@ -7,41 +7,41 @@ class Clock
     @total = convert_to_min(hours) + minutes
   end
 
-  def self.at(hours, minutes=0)
+  def self.at(hours, minutes = 0)
     Clock.new(hours, minutes)
   end
 
   def convert_to_min(hours)
-    hours == 0 ? 24 * 60 : hours * 60
+    hours.zero? ? 24 * 60 : hours * 60
   end
 
   def convert_to(hour)
     hour -= 24 while hour > 24
-    hour += 24 while hour < 0
+    hour += 24 while hour.negative?
 
     hour = 0 if hour == 24
     hour
   end
 
-  def +(min)
-    self.total += min
+  def +(other)
+    self.total += other
     self
   end
 
-  def -(min)
-    self.total -= min
+  def -(other)
+    self.total -= other
     self
   end
 
-  def ==(obj)
-    total == obj.total
+  def ==(other)
+    total == other.total
   end
 
   def to_s
     hr, min = total.divmod(60)
-    hr = convert_to(hr) if hr >= 24 || hr < 0
-    hour = hr > 9 ? "#{hr}" : "0#{hr}"
-    minute = min > 9 ? "#{min}" : "0#{min}"
+    hr = convert_to(hr) if hr >= 24 || hr.negative?
+    hour = hr > 9 ? hr.to_s : "0#{hr}"
+    minute = min > 9 ? min.to_s : "0#{min}"
     "#{hour}:#{minute}"
   end
 end
