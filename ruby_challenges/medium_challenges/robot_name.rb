@@ -1,3 +1,5 @@
+# rubocop:disable Style/FrozenStringLiteralComment
+# rubocop:disable  Style/Documentation
 class Robot
 
   @@names = []
@@ -31,3 +33,5 @@ class Robot
     @@names.include?(new_name)
   end
 end
+# rubocop:enable Style/FrozenStringLiteralComment
+# rubocop:enable  Style/Documentation
